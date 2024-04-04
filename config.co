@@ -1,0 +1,17 @@
+# This is a YAML representation of the flow, not directly executable but
+# structured in a way that could be adapted into platform-specific configuration.
+flow:
+  name: greet_user
+  steps:
+    - ask: "What rail do you wish to use? Agent Assist or Customer Assist?"
+    - on_response:
+        - if_contains: 
+            text: "agent"
+            actions:
+              - set_rail: "agent_assist"
+              - say: "All following queries will be submitted to the Agent Assist Rails."
+        - if_contains: 
+            text: "customer"
+            actions:
+              - set_rail: "customer_assist"
+              - say: "All following queries will be submitted to the Customer Assist Rails."
