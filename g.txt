@@ -1,0 +1,138 @@
+Prompt:
+
+I want step by step instructions to do the following:
+
+Implement NeMo Guardrails using FAIS CPU  LLM
+
+Include all config.co and config.yaml files
+
+
+Define these flows in colang and include that as part of the ocnfiguration
+
+Greet the user upon starting the program by stating : What rail do you wish to use? Agent Assist or Customer Assist? 
+
+If the user responds with agent then respond with : "All following queries will be submitted to the Agent Assist Rails." And subsequent queries will be sent to the Agent Assist Rails
+
+
+If the user responds with customer then respond with : "All following queries will be submitted to the Customer Assist Rails." And subsequent queries will be sent to the Customer Assist Rails
+
+Include a python program that loads the configurations and passes requests to rails and responses back to the command line
+======================================================
+Step 1: Setting Up the Environment
+First, you'll need to ensure your environment is set up for using FAISS (Facebook AI Similarity Search) for efficient similarity search and NeMo for building conversational AI models. If you're not already set up, you would typically need to do something like this in a Python environment:
+
+
+pipenv install faiss-cpu nemo_toolkit[all]
+
+======================================================
+Step 2: Configuration Files
+config.yaml
+The config.yaml file will store configuration related to your application, including the definitions for the guardrails. For simplicity, let's assume you're defining which model to use for each rail:
+
+
+rails:
+  agent_assist:
+    model: "model_agent_assist"
+  customer_assist:
+    model: "model_customer_assist"
+
+
+
+config.co (or config.py if the intention was Python Config)
+Since there's a mention of a config.co file which isn't a standard configuration file type, I'm assuming you meant a Python file for configuration purposes (config.py). If config.co refers to a specific format used by a tool or framework you're working with, the contents would need to be adjusted accordingly.
+
+
+
+# config.py
+rails_config = {
+    "agent_assist": {"model": "model_agent_assist"},
+    "customer_assist": {"model": "model_customer_assist"}
+}
+
+
+
+
+
+======================================================
+Step 3: Defining Flows in Colang
+For defining flows in Colang (Configuration Language), it would depend on the specific syntax and capabilities of the Colang you're using. Assuming a hypothetical language designed for configuring conversational flows, it might look something like:
+
+
+# Note: This is a hypothetical example. Replace with actual Colang syntax.
+flow greet_user {
+    ask "What rail do you wish to use? Agent Assist or Customer Assist?"
+    if response == "agent" {
+        set_rail "agent_assist"
+        say "All following queries will be submitted to the Agent Assist Rails."
+    } else if response == "customer" {
+        set_rail "customer_assist"
+        say "All following queries will be submitted to the Customer Assist Rails."
+    }
+}
+
+
+======================================================
+Step 4: Python Program
+Finally, you need a Python script that loads your configurations, prompts the user, and manages the logic based on the input. This script also simulates integrating with the rails based on the configurations and Colang logic (as actual integration would depend on the specifics of your setup).
+
+
+# main.py
+import yaml
+
+def load_config():
+    with open('config.yaml', 'r') as file:
+        return yaml.safe_load(file)
+
+def main():
+    config = load_config()
+    rail_choice = input("What rail do you wish to use? Agent Assist or Customer Assist? ").lower()
+    
+    if rail_choice == "agent":
+        print("All following queries will be submitted to the Agent Assist Rails.")
+        # Simulate sending queries to Agent Assist Rails based on config
+        model = config['rails']['agent_assist']['model']
+        print(f"Using model: {model}")
+    elif rail_choice == "customer":
+        print("All following queries will be submitted to the Customer Assist Rails.")
+        # Simulate sending queries to Customer Assist Rails based on config
+        model = config['rails']['customer_assist']['model']
+        print(f"Using model: {model}")
+    else:
+        print("Invalid choice. Please start over.")
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+======================================================
+
+
+
+
+
+======================================================
+
+
+
+
+
+======================================================
+
+
+
+
+
+======================================================
+
+
+
+
+
+======================================================
+
+
+
+
+
